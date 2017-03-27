@@ -38,6 +38,14 @@ do_build() {
   make
 }
 
+# this step failed several times with:
+# gcc-musl: Stripping unneeded symbols from binaries and libraries
+# strip: unable to copy file '/hab/pkgs/chetan/gcc-musl/6.3.0/20170326194328/bin/x86_64-linux-musl-strip'; reason: Text file busy
+# disabled for now. don't think strip works on these bins anyway
+do_strip() {
+  return 0
+}
+
 do_install() {
   local l f
   make OUTPUT=$pkg_prefix install
