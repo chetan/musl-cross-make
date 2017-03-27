@@ -13,9 +13,9 @@ pkg_build_deps=(
   core/diffutils
   core/sed
 )
-pkg_bin_dirs=(bin)
-pkg_include_dirs=(include)
-pkg_lib_dirs=(lib)
+pkg_bin_dirs=(bin x86_64-linux-musl/bin)
+pkg_include_dirs=(include x86_64-linux-musl/include)
+pkg_lib_dirs=(lib x86_64-linux-musl/lib)
 
 do_download() {
   return 0
@@ -53,4 +53,6 @@ do_install() {
     l=$(echo $f | sed -e 's/x86_64-linux-musl-//')
     ln -s $f $l
   done
+  # fix ld link
+  ln -sf $pkg_prefix/x86_64-linux-musl/lib/libc.so $pkg_prefix/x86_64-linux-musl/lib/ld-musl-x86_64.so.1
 }
